@@ -41,20 +41,6 @@ function Histo(props) {
   );
 }
 
-class RestComponent extends React.Component {
-  componentDidMount() {
-    axios.get("http://localhost:8082/node").then(response => {
-      const nodes = response.data;
-      console.log("data from rest api: ", nodes);
-      <Histo nodes={nodes} />;
-      // <Chart />;
-    });
-  }
-  render() {
-    return <p>RestComponent render called</p>;
-  }
-}
-
 function App() {
   const [nodes, setNodes] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -72,8 +58,6 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <p>App body teksti</p>
-        <RestComponent />
         <Histo nodes={nodes} loading={loading} />
       </header>
     </div>
