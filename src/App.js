@@ -4,38 +4,38 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import { labeledStatement } from "@babel/types";
+import Chart from "react-google-charts";
 
 function Histo(props) {
   const { nodes, loading } = props;
-  console.log("Histo called ", nodes);
-
-  const labels = [];
-  const data = [];
+  const google = [];
 
   if (loading === false) {
+    google.push(["Alarm", "Count"]);
     nodes.forEach(element => {
-      console.log("element: ", element);
-      labels.push(element["alarm"]);
-      data.push(element["count"]);
+      google.push([element["alarm"], element["count"]]);
     });
   }
-
-  console.log("lablels: ", labels);
-  console.log("data: ", data);
-
-  const labels2 = ["2016", "2017"];
-  const data2 = [324, 45];
-  console.log("data2: ", data2);
-  const options = { fillColor: "#FFFFFF", strokeColor: "#0000FF" };
-
   return (
     <div>
-      <Histogram
-        xLabels={labels}
-        yValues={data2}
-        width="400"
-        height="200"
-        options={options}
+      <Chart
+        width={"500px"}
+        height={"300px"}
+        chartType="BarChart"
+        loader={<div>Loading Chart</div>}
+        data={google}
+        options={{
+          title: "Most frequent alarms",
+          chartArea: { width: "50%" },
+          hAxis: {
+            title: "Count",
+            minValue: 0
+          },
+          vAxis: {
+            title: "Alarm ID"
+          }
+        }}
+        rootProps={{ "data-testid": "1" }}
       />
     </div>
   );
@@ -47,6 +47,7 @@ class RestComponent extends React.Component {
       const nodes = response.data;
       console.log("data from rest api: ", nodes);
       <Histo nodes={nodes} />;
+      // <Chart />;
     });
   }
   render() {
