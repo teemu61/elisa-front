@@ -39,8 +39,9 @@ function ERA015AlarmsPerHour() {
         loader={<div>Loading Chart</div>}
         data={google}
         options={{
-          title: "ERA015 alarms per hour",
-          chart: {},
+          chart: {
+            title: "ERA015 alarms per hour"
+          },
           width: 500,
           height: 300,
           series: {
