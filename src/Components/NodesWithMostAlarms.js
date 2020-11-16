@@ -5,18 +5,25 @@ import ReactDOM from "react-dom";
 import { labeledStatement } from "@babel/types";
 import Chart from "react-google-charts";
 
-function NodesWithMostAlarms(props) {
-  const { nodes, loading } = props;
+function NodesWithMostAlarms() {
+  const [node, setNode] = useState([]);
+  const [loading, setLoading] = useState(true);
   const google = [];
+
+  useEffect(() => {
+    axios.get("http://localhost:8082/node").then(response => {
+      setNode(response.data);
+      console.log("node from rest api: ", response.data);
+      setLoading(false);
+    });
+  }, []);
 
   if (loading === false) {
     google.push(["Alarm", "Count"]);
-    nodes.forEach(element => {
+    node.forEach(element => {
       google.push([element["node"], element["count"]]);
     });
   }
-
-  console.log("nodes with most alarms: ", google);
 
   return (
     <div>

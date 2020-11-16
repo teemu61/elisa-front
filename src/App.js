@@ -8,18 +8,8 @@ import MostFreqAlarms from "./Components/MostFreqAlarms";
 import NodesWithMostAlarms from "./Components/NodesWithMostAlarms";
 
 function App() {
-  const [nodes, setNodes] = useState([]);
   const [nodes2, setNodes2] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [loading2, setLoading2] = useState(true);
-
-  useEffect(() => {
-    axios.get("http://localhost:8082/node").then(response => {
-      setNodes(response.data);
-      console.log("node from rest api: ", response.data);
-      setLoading(false);
-    });
-  }, []);
 
   useEffect(() => {
     axios.get("http://localhost:8082/freq").then(response => {
@@ -32,7 +22,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <MostFreqAlarms nodes={nodes} loading={loading} />
+        <MostFreqAlarms />
         <NodesWithMostAlarms nodes={nodes2} loading={loading2} />
       </header>
     </div>
