@@ -5,18 +5,18 @@ import ReactDOM from "react-dom";
 import { labeledStatement } from "@babel/types";
 import Chart from "react-google-charts";
 
-function MostFreqAlarms(props) {
+function NodesWithMostAlarms(props) {
   const { nodes, loading } = props;
   const google = [];
 
   if (loading === false) {
-    google.push(["Node ID", "Count"]);
+    google.push(["Alarm", "Count"]);
     nodes.forEach(element => {
       google.push([element["node"], element["count"]]);
     });
   }
 
-  console.log("most freq alarms: ", google);
+  console.log("nodes with most alarms: ", google);
 
   return (
     <div>
@@ -37,9 +37,10 @@ function MostFreqAlarms(props) {
             title: "Node ID"
           }
         }}
+        rootProps={{ "data-testid": "1" }}
       />
     </div>
   );
 }
 
-export default MostFreqAlarms;
+export default NodesWithMostAlarms;
