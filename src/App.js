@@ -6,24 +6,17 @@ import { labeledStatement } from "@babel/types";
 import Chart from "react-google-charts";
 import MostFreqAlarms from "./Components/MostFreqAlarms";
 import NodesWithMostAlarms from "./Components/NodesWithMostAlarms";
+import ERA015AlarmsPerHour from "./Components/ERA015AlarmsPerHour";
 
 function App() {
-  const [nodes2, setNodes2] = useState([]);
-  const [loading2, setLoading2] = useState(true);
-
-  useEffect(() => {
-    axios.get("http://localhost:8082/freq").then(response => {
-      setNodes2(response.data);
-      console.log("freq from rest api: ", response.data);
-      setLoading2(false);
-    });
-  }, []);
-
   return (
     <div className="App">
       <header className="App-header">
         <MostFreqAlarms />
-        <NodesWithMostAlarms nodes={nodes2} loading={loading2} />
+        <br />
+        <NodesWithMostAlarms />
+        <br />
+        <ERA015AlarmsPerHour />
       </header>
     </div>
   );
